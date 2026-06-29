@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "build": "next build",
-    "dev": "next dev --webpack",
-    "start": "next start"
+    "build": "cross-env NODE_OPTIONS=--use-system-ca next build",
+    "dev": "cross-env NODE_OPTIONS=--use-system-ca next dev --webpack",
+    "start": "cross-env NODE_OPTIONS=--use-system-ca next start"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -28,7 +28,8 @@
     "@types/node": "22.10.7",
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
-    "baseline-browser-mapping": "^2.10.40"
+    "baseline-browser-mapping": "^2.10.40",
+    "cross-env": "^10.1.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
