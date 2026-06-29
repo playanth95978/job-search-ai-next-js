@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
-import postgres from 'postgres';
+import { neon } from '@neondatabase/serverless';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+// Driver Neon en HTTPS (port 443) — contourne le blocage du port 5432.
+const sql = neon(process.env.POSTGRES_URL!);
 
 async function seedUsers() {
   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -103,12 +104,12 @@ async function seedRevenue() {
 
 export async function GET() {
   try {
-    const result = await sql.begin((sql) => [
-      seedUsers(),
-      seedCustomers(),
-      seedInvoices(),
-      seedRevenue(),
-    ]);
+    // Le driver HTTP de Neon ne gère pas les transactions interactives (sql.begin),
+    // on exécute donc les étapes séquentiellement.
+    await seedUsers();
+    await seedCustomers();
+    await seedInvoices();
+    await seedRevenue();
 
     return Response.json({ message: 'Database seeded successfully' });
   } catch (error) {
