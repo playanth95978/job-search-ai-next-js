@@ -1,13 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--use-system-ca next build",
+      "build": "cross-env NODE_OPTIONS=--use-system-ca next build",
     "dev": "cross-env NODE_OPTIONS=--use-system-ca next dev --webpack",
     "start": "cross-env NODE_OPTIONS=--use-system-ca next start"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@neondatabase/serverless": "^1.1.0",
+    "@neondatabase/serverless": "^1.1 .0",
     "@tailwindcss/forms": "^0.5.10",
     "autoprefixer": "10.4.20",
     "bcrypt": "^5.1.1",
